@@ -1,0 +1,368 @@
+:root {
+  --primary: #03dac6;
+  --background: #121212;
+  --card: #1e1e1e;
+  --text: #ffffff;
+  --accent: #ff4081;
+  --hover-icon: #ffcc00;
+  --checkbox-bg: #2c2c2c;
+  --checkbox-border: #03dac6;
+}
+
+body.light-mode {
+  --background: #f4f4f4;
+  --card: #ffffff;
+  --text: #121212;
+  --checkbox-bg: #e0e0e0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--background);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding-top: 40px;
+  overflow-x: hidden;
+}
+
+.app-container {
+  width: 90%;
+  max-width: 600px;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  animation: fadeIn 1s ease;
+}
+
+h1 {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.nav-tools {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+#search-input {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--card);
+  color: var(--text);
+  max-width: 250px;
+}
+
+#theme-toggle {
+  font-size: 1.4rem;
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+}
+
+button,
+select {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--card);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover,
+select:hover {
+  background-color: var(--primary);
+  color: #000;
+}
+
+#add-task-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+  z-index: 999;
+}
+
+#add-task-button:hover {
+  transform: scale(1.1);
+}
+
+#task-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#task-popup.popup-visible {
+  display: flex;
+  animation: fadeIn 0.5s ease;
+}
+
+.popup-content {
+  background-color: var(--card);
+  padding: 20px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  animation: slideUp 0.4s ease;
+}
+
+.popup-content h2 {
+  margin-top: 0;
+  color: var(--primary);
+}
+
+.popup-content input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  background: #2c2c2c;
+  color: var(--text);
+  border: none;
+  border-radius: 8px;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+main#task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 10px;
+  animation: fadeIn 1s ease;
+}
+
+.task-card {
+  background-color: var(--card);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.task-card:hover {
+  background-color: #232323;
+}
+
+.task-info {
+  flex: 1;
+}
+
+.task-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.task-meta {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.task-actions {
+  display: flex;
+  gap: 12px;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.task-card:hover .task-actions {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.task-actions button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.task-actions button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--hover-icon);
+}
+
+.task-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--checkbox-border);
+  border-radius: 50%;
+  background-color: var(--checkbox-bg);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.task-checkbox:checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.task-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #000;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideRight {
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.task-card.fade-in {
+  animation: fadeInScale 0.3s ease;
+}
+
+.task-card.slide-out {
+  animation: slideRight 0.3s ease forwards;
+}
+
+@keyframes popupOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}
+
+.popup-hide {
+  animation: popupOut 0.3s ease forwards;
+}
+
+#toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.toast {
+  background: var(--primary);
+  color: black;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: fadeInOut 3s ease;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
